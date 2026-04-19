@@ -6,6 +6,7 @@ import ThemeToggle from "@/app/components/ThemeToggle";
 import LanguageSwitch from "@/app/components/LanguageSwitch";
 import { Menu, X } from "lucide-react";
 import MobileMenu from "./MobileMenu";
+import { Button } from "./ui/Button";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,12 +35,9 @@ export default function SiteHeader() {
               <span className="relative z-10 text-sm font-medium">
                 Star on GitHub
               </span>
-              <button
-                type="button"
-                className="rounded-xl px-6 h-10 font-medium transition-all hover:opacity-90 active:scale-95"
-              >
+              <Button className="rounded-xl px-6 h-10 font-medium transition-all hover:opacity-90 active:scale-95">
                 开始使用
-              </button>
+              </Button>
             </div>
 
             <button

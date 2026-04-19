@@ -3,7 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import LanguageSwitch from "./LanguageSwitch";
 import ThemeToggle from "./ThemeToggle";
-import { Button } from "@radix-ui/themes/components/button";
+import Link from "next/link";
+import { Button } from "./ui/Button";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -51,10 +52,13 @@ const MobileMenu = ({
 
           <div className="flex flex-col gap-3 px-4">
             <Button
-              type="button"
-              className="bg-primary hover:opacity-90 text-white w-full py-6 border"
+              size="default"
+              className="bg-primary hover:opacity-90 text-white w-full py-6"
+              asChild
             >
-              {buttonText}
+              <Link href="https://example.com" onClick={onClose}>
+                {buttonText}
+              </Link>
             </Button>
           </div>
         </nav>
