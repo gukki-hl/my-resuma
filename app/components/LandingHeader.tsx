@@ -5,7 +5,7 @@ import { useState } from "react";
 import ThemeToggle from "@/app/components/ThemeToggle";
 import LanguageSwitch from "@/app/components/LanguageSwitch";
 import { Menu, X } from "lucide-react";
-import MobileMenu from "./MobileMenu";
+import MobileMenu from "./home/client/MobileMenu";
 import { Button } from "./ui/Button";
 
 export default function SiteHeader() {
@@ -30,7 +30,9 @@ export default function SiteHeader() {
             </div>
             {/* 右边栏 */}
             <div className="hidden md:flex items-center gap-4">
+              {/* 字体切换 */}
               <LanguageSwitch />
+              {/* 主题切换 */}
               <ThemeToggle />
               <span className="relative z-10 text-sm font-medium">
                 Star on GitHub
