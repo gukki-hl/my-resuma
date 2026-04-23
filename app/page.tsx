@@ -1,5 +1,5 @@
-import LandingHeader from "./components/LandingHeader";
-import HeroSection from "./components/HeroSection";
+import LandingHeader from "./components/home/LandingHeader";
+import HeroSection from "./components/home/HeroSection";
 export default function Home() {
   return (
     <div className="relative bg-linear-to-b from-[#f8f9fb] to-white dark:from-gray-900 dark:to-gray-800">
