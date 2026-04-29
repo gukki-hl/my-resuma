@@ -5,7 +5,7 @@ interface ClientProps {
 }
 
 function client({ children }: ClientProps) {
-  return <div>{children}</div>;
+  return <div>{children}client</div>;
 }
 
 export default client;
