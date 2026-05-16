@@ -1,5 +1,5 @@
 const ResumesPage = () => {
-  return <div>ResumesPage11</div>;
+  return <div>ResumesPage</div>;
 };
 
 export default ResumesPage;
