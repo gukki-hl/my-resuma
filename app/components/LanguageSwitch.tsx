@@ -3,7 +3,7 @@
 import React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Languages } from "lucide-react";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 
 const LanguageSwitch = () => {
   return (

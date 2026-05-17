@@ -6,7 +6,7 @@ import ThemeToggle from "@/app/components/ThemeToggle";
 import LanguageSwitch from "@/app/components/LanguageSwitch";
 import { Menu, X } from "lucide-react";
 import MobileMenu from "./client/MobileMenu";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

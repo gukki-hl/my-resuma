@@ -1,7 +1,7 @@
 import AnimatedFeature from "./client/AnimatedFeature";
 import ScrollBackground from "./client/ScrollBackground";
 import { Sparkles, ArrowRight, Play } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import Image from "next/image";
 
 const HeroSection = () => {

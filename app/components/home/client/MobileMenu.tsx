@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import LanguageSwitch from "../../LanguageSwitch";
 import ThemeToggle from "../../ThemeToggle";
 import Link from "next/link";
-import { Button } from "../../ui/Button";
+import { Button } from "../../ui/button";
 
 interface MobileMenuProps {
   isOpen: boolean;
