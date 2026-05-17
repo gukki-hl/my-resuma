@@ -1,5 +1,5 @@
-const ResumesPage = () => {
-  return <div>ResumesPage11</div>;
-};
+import { ResumeWorkbench } from "./ResumeWorkbench";
 
-export default ResumesPage;
+export default function ResumesPage() {
+  return <ResumeWorkbench />;
+}
