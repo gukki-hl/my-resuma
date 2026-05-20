@@ -7,14 +7,16 @@ import { generateUUID } from "../utils/uuid";
 interface ResumeStore {
     resumes: Record<string, ResumeData>;
     activeResumeId: string | null;
+    hasHydrated: boolean;
     createResume: () => string;
 }
 
 export const useResumeStore = create(
     persist<ResumeStore>(
-        (set, get) => ({
-            resumes: {},//初始值
+        (set) => ({
+            resumes: {},
             activeResumeId: null,
+            hasHydrated: false,
 
             createResume: () => {
                 const id = generateUUID();
@@ -34,7 +36,11 @@ export const useResumeStore = create(
         }),
         {
             name: "resume-storage",
-
+            onRehydrateStorage: () => (state) => {
+                if (state) {
+                    state.hasHydrated = true;
+                }
+            },
         }
     )
 )

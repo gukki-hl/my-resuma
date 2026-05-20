@@ -1,13 +1,21 @@
 "use client";
 import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardTitle } from "@/app/components/ui/card";
-import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/app/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
 import { Settings, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useResumeStore } from "@/app/store/useResumeStore";
+import { ResumeCardItem } from "./ResumeCardItem";
 
 export const ResumeWorkbench = () => {
   const router = useRouter();
+  const { resumes, createResume, hasHydrated } = useResumeStore();
 
   return (
     <div className="h-[calc(100vh-2rem)] w-full">
@@ -62,6 +70,7 @@ export const ResumeWorkbench = () => {
               <Button
                 variant="default"
                 className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90"
+                onClick={createResume}
               >
                 <Plus className="mr-2 h-4 w-4" />
                 新建简历
@@ -84,10 +93,11 @@ export const ResumeWorkbench = () => {
             >
               <Card
                 className={cn(
-                  "relative border border-dashed cursor-pointer transition-all duration-200 aspect-[210/297] flex flex-col",
+                  "relative border border-dashed cursor-pointer transition-all duration-200 aspect-210/297 flex flex-col",
                   "hover:border-gray-400 hover:bg-gray-50",
                   "dark:hover:border-primary dark:hover:bg-primary/10",
                 )}
+                onClick={createResume}
               >
                 <CardContent className="flex-1 p-0 text-center flex flex-col items-center justify-center">
                   <motion.div
@@ -106,6 +116,18 @@ export const ResumeWorkbench = () => {
                 </CardContent>
               </Card>
             </motion.div>
+
+            <AnimatePresence>
+              {hasHydrated && Object.entries(resumes)
+                .sort(([, a], [, b]) => {
+                  const dateA = new Date(a.createAt || 0).getTime();
+                  const dateB = new Date(b.createAt || 0).getTime();
+                  return dateB - dateA;
+                })
+                .map(([id, resume],index) => (
+               <ResumeCardItem key={id} id={id} resume={resume} index={index}/>
+                ))}
+            </AnimatePresence>
           </div>
         </motion.div>
       </motion.div>
