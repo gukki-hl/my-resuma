@@ -1,9 +1,21 @@
 "use client";
+import React from "react";
+import { toast } from "sonner";
 import { Card, CardContent, CardFooter } from "@/app/components/ui/card";
 import { motion } from "framer-motion";
 import { ResumeData } from "@/app/types/resume";
 import { cn } from "@/lib/utils";
 import { Edit2, Copy, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/app/components/ui/alert-dialog";
 
 interface ResumeCardItemProps {
   id: string;
@@ -12,6 +24,8 @@ interface ResumeCardItemProps {
 }
 
 export const ResumeCardItem = ({ id, resume, index }: ResumeCardItemProps) => {
+  const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -69,13 +83,50 @@ export const ResumeCardItem = ({ id, resume, index }: ResumeCardItemProps) => {
               <span>复制</span>
             </button>
 
-            <button className="flex-1 flex items-center justify-center gap-1.5 hover:bg-red-50 dark:hover:bg-red-950/40 transition-all duration-200 text-red-600 dark:text-red-400 font-medium text-sm group">
+            <button
+              className="flex-1 flex items-center justify-center gap-1.5 hover:bg-red-50 dark:hover:bg-red-950/40 transition-all duration-200 text-red-600 dark:text-red-400 font-medium text-sm group"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteDialog(true);
+              }}
+            >
               <Trash2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" />
               <span>删除</span>
             </button>
           </div>
         </CardFooter>
       </Card>
+
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent onClick={(e) => e.stopPropagation()}>
+          <AlertDialogHeader>
+            <AlertDialogTitle>确认删除简历吗？</AlertDialogTitle>
+            <AlertDialogDescription>
+              此操作无法撤销，将永久删除此简历，并从设备中移除数据
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteDialog(false);
+              }}
+            >
+              取消
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-red-600 hover:bg-red-700 text-white focus:ring-red-600 border-none"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteDialog(false);
+                toast.success("成功");
+              }}
+            >
+              确认
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </motion.div>
   );
 };
