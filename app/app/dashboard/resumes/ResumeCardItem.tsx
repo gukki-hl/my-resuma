@@ -1,8 +1,9 @@
 "use client";
-import { Card, CardContent } from "@/app/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/app/components/ui/card";
 import { motion } from "framer-motion";
 import { ResumeData } from "@/app/types/resume";
 import { cn } from "@/lib/utils";
+import { Edit2, Copy, Trash2 } from "lucide-react";
 
 interface ResumeCardItemProps {
   id: string;
@@ -57,6 +58,23 @@ export const ResumeCardItem = ({ id, resume, index }: ResumeCardItemProps) => {
             </div>
           </div>
         </CardContent>
+        <CardFooter className="p-0 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 overflow-hidden">
+          <div className="flex w-full h-11  divide-x  divide-gray-100 dark:divide-gray-800">
+            <button className="flex-1 flex items-center justify-center gap-1.5 hover:bg-white  dark:hover:bg-gray-800/80 transition-all duration-200 text-gray-700 dark:text-gray-200 hover:text-primary font-medium text-sm group">
+              <Edit2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform opacity-70 group-hover:opacity-100" />
+              <span>编辑</span>
+            </button>
+            <button className="flex-1 flex items-center justify-center gap-1.5 hover:bg-white dark:hover:bg-gray-800/80 transition-all duration-200 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm group">
+              <Copy className="w-3.5 h-3.5 group-hover:scale-110 transition-transform opacity-70 group-hover:opacity-100" />
+              <span>复制</span>
+            </button>
+
+            <button className="flex-1 flex items-center justify-center gap-1.5 hover:bg-red-50 dark:hover:bg-red-950/40 transition-all duration-200 text-red-600 dark:text-red-400 font-medium text-sm group">
+              <Trash2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform opacity-80 group-hover:opacity-100" />
+              <span>删除</span>
+            </button>
+          </div>
+        </CardFooter>
       </Card>
     </motion.div>
   );
