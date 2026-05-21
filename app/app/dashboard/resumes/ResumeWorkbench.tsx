@@ -15,7 +15,7 @@ import { ResumeCardItem } from "./ResumeCardItem";
 
 export const ResumeWorkbench = () => {
   const router = useRouter();
-  const { resumes, createResume, hasHydrated } = useResumeStore();
+  const { resumes, createResume, hasHydrated, deleteResume } = useResumeStore();
 
   return (
     <div className="h-[calc(100vh-2rem)] w-full">
@@ -118,15 +118,22 @@ export const ResumeWorkbench = () => {
             </motion.div>
 
             <AnimatePresence>
-              {hasHydrated && Object.entries(resumes)
-                .sort(([, a], [, b]) => {
-                  const dateA = new Date(a.createAt || 0).getTime();
-                  const dateB = new Date(b.createAt || 0).getTime();
-                  return dateB - dateA;
-                })
-                .map(([id, resume],index) => (
-               <ResumeCardItem key={id} id={id} resume={resume} index={index}/>
-                ))}
+              {hasHydrated &&
+                Object.entries(resumes)
+                  .sort(([, a], [, b]) => {
+                    const dateA = new Date(a.createAt || 0).getTime();
+                    const dateB = new Date(b.createAt || 0).getTime();
+                    return dateB - dateA;
+                  })
+                  .map(([id, resume], index) => (
+                    <ResumeCardItem
+                      key={id}
+                      id={id}
+                      resume={resume}
+                      index={index}
+                      deleteResume={deleteResume}
+                    />
+                  ))}
             </AnimatePresence>
           </div>
         </motion.div>

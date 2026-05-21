@@ -21,9 +21,15 @@ interface ResumeCardItemProps {
   id: string;
   resume: ResumeData;
   index: number;
+  deleteResume: (resume: ResumeData) => void;
 }
 
-export const ResumeCardItem = ({ id, resume, index }: ResumeCardItemProps) => {
+export const ResumeCardItem = ({
+  id,
+  resume,
+  index,
+  deleteResume,
+}: ResumeCardItemProps) => {
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
 
   return (
@@ -118,8 +124,9 @@ export const ResumeCardItem = ({ id, resume, index }: ResumeCardItemProps) => {
               className="bg-red-600 hover:bg-red-700 text-white focus:ring-red-600 border-none"
               onClick={(e) => {
                 e.stopPropagation();
+                deleteResume(resume)
                 setShowDeleteDialog(false);
-                toast.success("成功");
+                toast.success("删除成功");
               }}
             >
               确认

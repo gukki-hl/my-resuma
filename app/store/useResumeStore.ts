@@ -7,8 +7,10 @@ import { generateUUID } from "../utils/uuid";
 interface ResumeStore {
     resumes: Record<string, ResumeData>;
     activeResumeId: string | null;
+    activeResume: ResumeData | null;
     hasHydrated: boolean;
     createResume: () => string;
+    deleteResume: (resume: ResumeData) => void;
 }
 
 export const useResumeStore = create(
@@ -16,6 +18,7 @@ export const useResumeStore = create(
         (set) => ({
             resumes: {},
             activeResumeId: null,
+            activeResume: null,
             hasHydrated: false,
 
             createResume: () => {
@@ -28,9 +31,21 @@ export const useResumeStore = create(
                 };
                 set((state) => ({
                     resumes: { ...state.resumes, [id]: newResume },
-                activeResumeId: id,
+                    activeResumeId: id,
                 }))
                 return id
+            },
+
+            deleteResume: (resume) => {
+                const resumeId = resume.id
+                set((state) => {
+                    const { [resumeId]: _, activeResume, ...rest } = state.resumes;
+                    return {
+                        resumes: rest,
+                        activeResumeId: null,
+                        activeResume: null
+                    }
+                })
             }
 
         }),
