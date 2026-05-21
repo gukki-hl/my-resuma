@@ -124,7 +124,7 @@ export const ResumeCardItem = ({
               className="bg-red-600 hover:bg-red-700 text-white focus:ring-red-600 border-none"
               onClick={(e) => {
                 e.stopPropagation();
-                deleteResume(resume)
+                deleteResume(resume);
                 setShowDeleteDialog(false);
                 toast.success("删除成功");
               }}
