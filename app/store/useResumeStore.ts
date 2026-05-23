@@ -9,7 +9,7 @@ interface ResumeStore {
     activeResumeId: string | null;
     activeResume: ResumeData | null;
     hasHydrated: boolean;
-    createResume: () => string;
+    createResume: (templateId: string | null, isBlank?: boolean) => string;
     deleteResume: (resume: ResumeData) => void;
 }
 

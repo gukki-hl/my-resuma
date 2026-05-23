@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { Button } from "@/app/components/ui/button";
 import {
   Card,
@@ -12,10 +13,17 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useResumeStore } from "@/app/store/useResumeStore";
 import { ResumeCardItem } from "./ResumeCardItem";
+import { CreateResumeModal } from "./CreateResumeModal";
 
 export const ResumeWorkbench = () => {
   const router = useRouter();
+  const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false); //新建简历模板
   const { resumes, createResume, hasHydrated, deleteResume } = useResumeStore();
+
+  const handleCreateFromModal = (templatesId: string | null) => {
+    const isBlack = !templatesId
+    const newId = createResume(templatesId,isBlack)
+  };
 
   return (
     <div className="h-[calc(100vh-2rem)] w-full">
@@ -70,7 +78,7 @@ export const ResumeWorkbench = () => {
               <Button
                 variant="default"
                 className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90"
-                onClick={createResume}
+                onClick={() => setIsCreateModalOpen(true)}
               >
                 <Plus className="mr-2 h-4 w-4" />
                 新建简历
@@ -97,7 +105,7 @@ export const ResumeWorkbench = () => {
                   "hover:border-gray-400 hover:bg-gray-50",
                   "dark:hover:border-primary dark:hover:bg-primary/10",
                 )}
-                onClick={createResume}
+                onClick={() => setIsCreateModalOpen(true)}
               >
                 <CardContent className="flex-1 p-0 text-center flex flex-col items-center justify-center">
                   <motion.div
@@ -137,6 +145,12 @@ export const ResumeWorkbench = () => {
             </AnimatePresence>
           </div>
         </motion.div>
+
+        <CreateResumeModal
+          open={isCreateModalOpen}
+          onOpenChange={setIsCreateModalOpen}
+          onCreate={handleCreateFromModal}
+        />
       </motion.div>
     </div>
   );
