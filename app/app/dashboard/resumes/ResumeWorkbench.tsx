@@ -20,9 +20,9 @@ export const ResumeWorkbench = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false); //新建简历模板
   const { resumes, createResume, hasHydrated, deleteResume } = useResumeStore();
 
-  const handleCreateFromModal = (templatesId: string | null) => {
-    const isBlack = !templatesId
-    const newId = createResume(templatesId,isBlack)
+  const handleCreateFromModal = (templateId: string | null) => {
+    const isBlank = !templateId;
+    const newId = createResume(templateId, isBlank);
   };
 
   return (
