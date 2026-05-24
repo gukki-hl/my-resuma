@@ -1,4 +1,4 @@
-// 模板元数据
+// 定义模板配置类型
 
 import { CSSProperties } from "react";
 
