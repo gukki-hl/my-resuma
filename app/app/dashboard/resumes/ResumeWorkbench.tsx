@@ -129,8 +129,8 @@ export const ResumeWorkbench = () => {
               {hasHydrated &&
                 Object.entries(resumes)
                   .sort(([, a], [, b]) => {
-                    const dateA = new Date(a.createAt || 0).getTime();
-                    const dateB = new Date(b.createAt || 0).getTime();
+                    const dateA = new Date(a.createdAt || 0).getTime();
+                    const dateB = new Date(b.createdAt || 0).getTime();
                     return dateB - dateA;
                   })
                   .map(([id, resume], index) => (
