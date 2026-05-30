@@ -1,4 +1,7 @@
+import { DEFAULT_TEMPLATES } from "@/app/components/templates/registry";
 import { ScrollArea } from "@/app/components/ui/scroll-area";
+import { ResumeTemplate } from "@/app/types/template";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,8 +14,63 @@ import { ChevronLeft, FilePlus, X } from "lucide-react";
 interface CreateResumeModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreate: (trmplateId: string | null) => void;
+  onCreate: (templateId: string | null) => void;
 }
+
+type BlankTemplate = {
+  id: null;
+  isBlank: true;
+  nameKey: "blankTitle";
+};
+
+type NormalTemplate = ResumeTemplate & { isBlank: false; nameKey: string };
+type TemplateOption = NormalTemplate | BlankTemplate;
+
+const toTemplateNameKey = (templateId: string) =>
+  templateId === "left-right" ? "leftRight" : templateId;
+
+const NORMAL_TEMPLATES: NormalTemplate[] = DEFAULT_TEMPLATES.map(
+  (template) => ({
+    ...template,
+    isBlank: false,
+    nameKey: toTemplateNameKey(template.id),
+  }),
+);
+const BlankTemplateThumbnail = () => {
+  return <FilePlus className="w-10 h-10 text-gray-400" />;
+};
+
+const TemplateCardThumbnail = ({
+  template,
+  snapshotSrc,
+}: {
+  template: TemplateOption;
+  snapshotSrc?: string | null;
+}) => {
+  if (template.isBlank) {
+    return <BlankTemplateThumbnail />;
+  }
+
+  if (snapshotSrc) {
+    return (
+      <img
+        src={snapshotSrc}
+        alt={template.nameKey}
+        className="h-full w-full object-cover object-top"
+        loading="eager"
+        draggable={false}
+      />
+    );
+  }
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-800/50">
+      <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+        {template.nameKey}
+      </span>
+    </div>
+  );
+};
+
 export const CreateResumeModal = ({
   open,
   onCreate,
@@ -88,6 +146,45 @@ export const CreateResumeModal = ({
                   </section>
 
                   {/* SECTION 2: NORMAL TEMPLATES */}
+                  <section>
+                    <div className="flex items-center mb-6">
+                      <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                        从模板开始
+                      </h4>
+                      <div className="h-px bg-gray-200 dark:bg-gray-800 flex-1 ml-6" />
+                    </div>
+                    <div className="grid gird-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8 hover:shadow-none!">
+                      {NORMAL_TEMPLATES.map((template) => {
+                        return (
+                          <motion.div
+                            key={template.id}
+                            layoutId={`card-container-${template.id}`}
+                            whileHover={{ y: 0, scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="group cursor-pointer flex flex-col"
+                          >
+                            <motion.div
+                              layoutId={`card-image-${template.id}`}
+                              className="aspect-210/297 rounded-2xl overflow-hidden border border-gray-200/60 dark:border-gray-800/60 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:border-primary/50 dark:group-hover:border-primary/50 bg-white dark:bg-gray-900 relative"
+                            >
+                              <TemplateCardThumbnail template={template} />
+                              <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/5 rounded-2xl pointer-events-none" />
+                              <div className="absolute inset-0 bg-linear-to-t from-gray-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </motion.div>
+
+                            <motion.div
+                              layoutId={`card-title-${template.id}`}
+                              className="mt-4 flex items-center justify-center"
+                            >
+                              <span className="text-[15px] font-semibold text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors">
+                                {template.nameKey}
+                              </span>
+                            </motion.div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </section>
                 </div>
               </ScrollArea>
             </div>
