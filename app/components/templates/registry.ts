@@ -3,6 +3,8 @@ import { ResumeData } from '@/app/types/resume'
 import React from 'react'
 import { classicConfig } from './classic/config'
 import ClassicTemplate from './classic'
+import ModernTemplate from './modern'
+import { modernConfig } from './modern/config'
 
 // 模板注册条目：将模板配置与对应的渲染组件关联
 interface TemplateRegistryEntry {
@@ -12,7 +14,9 @@ interface TemplateRegistryEntry {
 
 // 模板注册表，所有可用模板需在此注册
 export const TEMPLATE_REGISTRY: TemplateRegistryEntry[] = [
-    { config: classicConfig, Component: ClassicTemplate }
+    { config: classicConfig, Component: ClassicTemplate },
+    { config: modernConfig, Component: ModernTemplate },
+
 ]
 
 // 从注册表中提取的默认模板列表，供模板选择器等场景使用
