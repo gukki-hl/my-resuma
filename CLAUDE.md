@@ -110,6 +110,8 @@ Subject 必须使用中文，例如：`feat(简历): 新增作品集卡片组件
 - "要提交了"
 
 
+@AGENTS.md
+
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
