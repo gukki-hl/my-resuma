@@ -23,6 +23,7 @@ export const ResumeWorkbench = () => {
   const handleCreateFromModal = (templateId: string | null) => {
     const isBlank = !templateId;
     const newId = createResume(templateId, isBlank);
+    router.push(`/app/workbench/${newId}`);
   };
 
   return (

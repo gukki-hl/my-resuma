@@ -23,11 +23,46 @@ export const useResumeStore = create(
 
             createResume: () => {
                 const id = generateUUID();
-                const newResume = {
+                const now = new Date().toISOString();
+                const newResume: ResumeData = {
                     id,
                     title: `新建简历 ${id.slice(0, 6)}`,
-                    createAt: new Date().toISOString(),
-                    updateAt: new Date().toISOString(),
+                    createdAt: now,
+                    updatedAt: now,
+                    templateId: null,
+                    basic: {
+                        birthDate: "",
+                        name: "",
+                        title: "",
+                        email: "",
+                        phone: "",
+                        location: "",
+                        icons: {},
+                        employementStatus: "",
+                        photo: "",
+                        photoConfig: {
+                            width: 80,
+                            height: 80,
+                            aspectRatio: "1:1",
+                            borderRadius: "full",
+                            customBorderRadius: 0,
+                        },
+                        customFields: [],
+                        githubKey: "",
+                        githubUseName: "",
+                        githubContributionsVisible: false,
+                    },
+                    education: [],
+                    experience: [],
+                    projects: [],
+                    certificates: [],
+                    customData: {},
+                    skillContent: "",
+                    selfEvaluationContent: "",
+                    activeSection: "",
+                    draggingProjectId: null,
+                    menuSections: [],
+                    globalSettings: {},
                 };
                 set((state) => ({
                     resumes: { ...state.resumes, [id]: newResume },

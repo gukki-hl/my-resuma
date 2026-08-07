@@ -29,6 +29,12 @@ type TemplateOption = NormalTemplate | BlankTemplate;
 const toTemplateNameKey = (templateId: string) =>
   templateId === "left-right" ? "leftRight" : templateId;
 
+const BLANK_TEMPLATE: BlankTemplate = {
+  id: null,
+  isBlank: true,
+  nameKey: "blankTitle",
+};
+
 const NORMAL_TEMPLATES: NormalTemplate[] = DEFAULT_TEMPLATES.map(
   (template) => ({
     ...template,
@@ -76,6 +82,11 @@ export const CreateResumeModal = ({
   onCreate,
   onOpenChange,
 }: CreateResumeModalProps) => {
+
+  const handleCreate = (template: TemplateOption) => {
+    onCreate(template.id);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
@@ -114,6 +125,7 @@ export const CreateResumeModal = ({
                       layoutId={`card-container-blank`}
                       whileHover={{ y: -4, scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
+                      onClick={() => handleCreate(BLANK_TEMPLATE)}
                       className="group cursor-pointer rounded-2xl border border-gray-200/60 dark:border-gray-800/60 shadow-sm bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-900 hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 p-6 flex flex-col sm:flex-row items-center gap-6"
                     >
                       {/* Small visual icon area */}

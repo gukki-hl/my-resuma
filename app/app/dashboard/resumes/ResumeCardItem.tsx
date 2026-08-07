@@ -73,7 +73,7 @@ export const ResumeCardItem = ({
                 {resume.title}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {new Date(resume.createAt).toLocaleDateString("zh-CN")}
+                {new Date(resume.createdAt).toLocaleDateString("zh-CN")}
               </span>
             </div>
           </div>
