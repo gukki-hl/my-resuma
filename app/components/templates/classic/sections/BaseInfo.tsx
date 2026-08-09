@@ -1,4 +1,3 @@
-import React from 'react'
 import { BasicInfo as BasicInfoType, GlobalSettings } from '@/app/types/resume'
 import { ResumeTemplate } from '@/app/types/template'
 

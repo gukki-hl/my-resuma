@@ -19,6 +19,7 @@ export interface ResumeData {
     globalSettings: GlobalSettings;//全局样式设置
 }
 
+//基本信息
 export interface BasicInfo {
     birthDate: string;//生日
     name: string;//姓名
