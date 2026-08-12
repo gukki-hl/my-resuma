@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { ChevronLeft, FilePlus, X } from "lucide-react";
+import { useTemplateSnapshots } from "@/app/hooks/useTemplateSnapshots";
 interface CreateResumeModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -42,16 +43,18 @@ const NORMAL_TEMPLATES: NormalTemplate[] = DEFAULT_TEMPLATES.map(
     nameKey: toTemplateNameKey(template.id),
   }),
 );
+//创建空白模板缩略图
 const BlankTemplateThumbnail = () => {
   return <FilePlus className="w-10 h-10 text-gray-400" />;
 };
 
+//创建简历模板缩略图，用于在简历模板列表中显示
 const TemplateCardThumbnail = ({
   template,
   snapshotSrc,
 }: {
   template: TemplateOption;
-  snapshotSrc?: string | null;
+  snapshotSrc: string | null;
 }) => {
   if (template.isBlank) {
     return <BlankTemplateThumbnail />;
@@ -82,6 +85,7 @@ export const CreateResumeModal = ({
   onCreate,
   onOpenChange,
 }: CreateResumeModalProps) => {
+  const { snapshotMap } = useTemplateSnapshots();
 
   const handleCreate = (template: TemplateOption) => {
     onCreate(template.id);
@@ -91,13 +95,13 @@ export const CreateResumeModal = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
         <DialogOverlay className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <DialogContent className="fixed left-1/2 top-1/2 z-50 max-w-[1100px] w-[95vw] h-[90vh] sm:h-[85vh] p-0 overflow-hidden bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-2xl rounded-[2rem] flex flex-col -translate-x-1/2 -translate-y-1/2">
+        <DialogContent className="fixed left-1/2 top-1/2 z-50 max-w-275 w-[95vw] h-[90vh] sm:h-[85vh] p-0 overflow-hidden bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl border border-white/20 dark:border-white/10 shadow-2xl rounded-[2rem] flex flex-col -translate-x-1/2 -translate-y-1/2">
           <DialogTitle className="sr-only">常见弹窗标题</DialogTitle>
 
           <div className="relative w-full h-full min-h-0 flex flex-col">
             {/* HEADER BAR */}
             <div className="flex items-center justify-between px-8 pt-6 pb-2 shrink-0">
-              <div className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
+              <div className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
                 新建简历
               </div>
               <button
@@ -179,7 +183,10 @@ export const CreateResumeModal = ({
                               layoutId={`card-image-${template.id}`}
                               className="aspect-210/297 rounded-2xl overflow-hidden border border-gray-200/60 dark:border-gray-800/60 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:border-primary/50 dark:group-hover:border-primary/50 bg-white dark:bg-gray-900 relative"
                             >
-                              <TemplateCardThumbnail template={template} />
+                              <TemplateCardThumbnail
+                                template={template}
+                                snapshotSrc={snapshotMap[template.id]}
+                              />
                               <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/5 rounded-2xl pointer-events-none" />
                               <div className="absolute inset-0 bg-linear-to-t from-gray-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </motion.div>
